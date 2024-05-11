@@ -1,10 +1,10 @@
-import { TaskState } from "../redux/slices/tasksSlice";
+import { TaskState } from '../redux/slices/tasksSlice';
 
 /**
  * A function to sort tasks based on their completion status.
  * Tasks that are not done are moved to the top, and tasks that are done are moved to the bottom.
- * 
- * @param {TaskType} a 
+ *
+ * @param {TaskType} a
  * @param {TaskType} b -
  * @returns {number}
  */

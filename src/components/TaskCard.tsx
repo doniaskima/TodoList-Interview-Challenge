@@ -1,9 +1,9 @@
-import * as Checkbox from "@radix-ui/react-checkbox";
-import checkIcon from "../assets/check-icon.svg";
-import trashIcon from "../assets/trash-icon.svg";
-import { TaskState, updateTask } from "../redux/slices/tasksSlice";
-import { useDispatch } from "react-redux";
-import { removeTask } from "../redux/slices/tasksSlice";
+import * as Checkbox from '@radix-ui/react-checkbox';
+import checkIcon from '../assets/check-icon.svg';
+import trashIcon from '../assets/trash-icon.svg';
+import { TaskState, updateTask } from '../redux/slices/tasksSlice';
+import { useDispatch } from 'react-redux';
+import { removeTask } from '../redux/slices/tasksSlice';
 
 interface TaskCardProps {
   task: TaskState;
@@ -20,16 +20,16 @@ export const TaskCard = ({ task }: TaskCardProps) => {
     string[0].toUpperCase() + string.slice(1);
 
   const textStyleIfTaskIsDone = task.isDone
-    ? "text-[#808080] line-through"
-    : "text-black/80 dark:text-white";
+    ? 'text-[#808080] line-through'
+    : 'text-black/80 dark:text-white';
 
   const checkboxStyleIfTaskIsDone = task.isDone
-    ? "bg-[#5E60CE] dark:bg-[#5E60CE]"
-    : "border-2 border-[#4EA8DE]";
+    ? 'bg-[#5E60CE] dark:bg-[#5E60CE]'
+    : 'border-2 border-[#4EA8DE]';
 
   const divStyleIfTaskIsDone = task.isDone
-    ? ""
-    : "outline outline-1 outline-gray-200 dark:outline-[#333333] shadow-md";
+    ? ''
+    : 'outline outline-1 outline-gray-200 dark:outline-[#333333] shadow-md';
 
   return (
     <div
@@ -44,7 +44,7 @@ export const TaskCard = ({ task }: TaskCardProps) => {
         rounded-full`}
       >
         <Checkbox.Indicator>
-          <img src={checkIcon} alt="" className="w-full" />
+          <img src={checkIcon} alt='' className='w-full' />
         </Checkbox.Indicator>
       </Checkbox.Root>
       <p
@@ -52,8 +52,8 @@ export const TaskCard = ({ task }: TaskCardProps) => {
       >
         {justFirstLetterToUppercase(task.taskText)}
       </p>
-      <button type="button" onClick={() => dispatch(removeTask(task))}>
-        <img src={trashIcon} alt="trash-icon" className="w-7 h-7" />
+      <button type='button' onClick={() => dispatch(removeTask(task))}>
+        <img src={trashIcon} alt='trash-icon' className='w-7 h-7' />
       </button>
     </div>
   );
