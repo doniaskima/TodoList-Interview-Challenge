@@ -1,60 +1,83 @@
+import React, { useState } from 'react';
 import * as Checkbox from '@radix-ui/react-checkbox';
-import checkIcon from '../assets/check-icon.svg';
-import trashIcon from '../assets/trash-icon.svg';
-import { TaskState, updateTask } from '../redux/slices/tasksSlice';
+import { Trash, PencilSimple } from 'phosphor-react';
 import { useDispatch } from 'react-redux';
-import { removeTask } from '../redux/slices/tasksSlice';
+import {
+  updateTaskText,
+  removeTask,
+  updateTask,
+} from '../redux/slices/tasksSlice';
 
 interface TaskCardProps {
-  task: TaskState;
+  task: {
+    id: string;
+    taskText: string;
+    isDone: boolean;
+  };
 }
 
 export const TaskCard = ({ task }: TaskCardProps) => {
   const dispatch = useDispatch();
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedText, setEditedText] = useState(task.taskText);
 
-  const handleUpdateTask = () => {
-    dispatch(updateTask(task));
+  const toggleEdit = () => {
+    setIsEditing(!isEditing);
+    if (isEditing) {
+      dispatch(updateTaskText({ id: task.id, taskText: editedText }));
+    }
   };
 
-  const justFirstLetterToUppercase = (string: string) =>
-    string[0].toUpperCase() + string.slice(1);
+  const handleTextChange = (e: any) => {
+    setEditedText(e.target.value);
+  };
 
-  const textStyleIfTaskIsDone = task.isDone
-    ? 'text-[#808080] line-through'
-    : 'text-black/80 dark:text-white';
-
-  const checkboxStyleIfTaskIsDone = task.isDone
-    ? 'bg-[#5E60CE] dark:bg-[#5E60CE]'
-    : 'border-2 border-[#4EA8DE]';
-
-  const divStyleIfTaskIsDone = task.isDone
-    ? ''
-    : 'outline outline-1 outline-gray-200 dark:outline-[#333333] shadow-md';
+  const handleUpdateTask = () => {
+    dispatch(updateTask({ ...task, isDone: !task.isDone }));
+  };
 
   return (
     <div
+      className={`rounded-lg min-h-[56px] flex p-5 bg-slate-100 dark:bg-[#262626] cursor-pointer items-start ${
+        task.isDone
+          ? ''
+          : 'outline outline-1 outline-gray-200 dark:outline-[#333333] shadow-md'
+      }`}
       onClick={handleUpdateTask}
-      className={`rounded-lg min-h-[56px] flex p-5 bg-slate-100 dark:bg-[#262626] cursor-pointer
-      items-start ${divStyleIfTaskIsDone}`}
     >
       <Checkbox.Root
-        value={`${task.isDone}`}
         checked={task.isDone}
-        className={`dark:bg-[#262626] w-4 h-4 p-1 ${checkboxStyleIfTaskIsDone}
+        className={`dark:bg-[#262626] w-4 h-4 p-1 ${task.isDone ? 'bg-[#5E60CE] dark:bg-[#5E60CE]' : 'border-2 border-[#4EA8DE]'}
         rounded-full`}
       >
         <Checkbox.Indicator>
-          <img src={checkIcon} alt='' className='w-full' />
+          <Trash size={16} />
         </Checkbox.Indicator>
       </Checkbox.Root>
-      <p
-        className={`mx-4 overflow-auto break-words flex-1 -mt-1 ${textStyleIfTaskIsDone}`}
-      >
-        {justFirstLetterToUppercase(task.taskText)}
-      </p>
+      {isEditing ? (
+        <input
+          type='text'
+          value={editedText}
+          onChange={handleTextChange}
+          onBlur={toggleEdit}
+          onKeyDown={(e) => e.key === 'Enter' && toggleEdit()}
+          className='mx-4 flex-1 text-black/80 dark:text-white'
+        />
+      ) : (
+        <p
+          className={`mx-4 overflow-auto break-words flex-1 -mt-1 ${task.isDone ? 'text-[#808080] line-through' : 'text-black/80 dark:text-white'}`}
+        >
+          {task.taskText}
+        </p>
+      )}
       <button type='button' onClick={() => dispatch(removeTask(task))}>
-        <img src={trashIcon} alt='trash-icon' className='w-7 h-7' />
+        <Trash size={24} className='text-red-500' />
       </button>
+      {!task.isDone && (
+        <button type='button' onClick={toggleEdit} className='ml-2'>
+          <PencilSimple size={24} className='text-blue-500' />
+        </button>
+      )}
     </div>
   );
 };

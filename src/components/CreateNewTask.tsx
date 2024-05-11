@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 export const CreateNewTask = () => {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState('');
-  const [shake, setShake] = useState(false); // State to trigger shake animation
+  const [shake, setShake] = useState(false);
 
   const handleAddTask = () => {
     if (!inputValue.trim()) {
@@ -57,9 +57,9 @@ export const CreateNewTask = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className='bg-[#268cc7] hover:bg-[#2a9cdd] active:bg-[#217baf]
-  dark:bg-[#1E6F9F] dark:hover:bg-[#2284bd] dark:active:bg-[#19608a]
-  text-white rounded-lg w-24 font-bold flex items-center
-  justify-center gap-2 text-sm p-4'
+                  dark:bg-[#1E6F9F] dark:hover:bg-[#2284bd] dark:active:bg-[#19608a]
+                  text-white rounded-lg w-24 font-bold flex items-center
+                  justify-center gap-2 text-sm p-4'
       >
         Create
         <img src={plusIcon} alt='plus-icon' />

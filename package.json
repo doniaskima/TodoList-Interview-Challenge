@@ -9,8 +9,8 @@
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "commit": "cz",
-    "format": "prettier --write ./src/**/*.{ts,tsx,js,jsx,json,md} --ignore-path ./.prettierignore || true",
-    "lint": "eslint --fix ./src"
+    "format": "prettier --write ./src/**/*.{ts,tsx,js,jsx,json,md} --ignore-path ./.prettierignore || true"
+ 
   },
   "dependencies": {
     "@commitlint/cz-commitlint": "^19.2.0",

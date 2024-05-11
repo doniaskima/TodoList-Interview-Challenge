@@ -30,11 +30,9 @@ export const tasksSlice = createSlice({
     },
     // Remove a task from the state array by its id.
     removeTask: (state, action) => {
-      const chosenTask = state.findIndex(
-        (task) => task.id === action.payload.id
-      );
-      if (chosenTask !== -1) {
-        state.splice(chosenTask, 1);
+      const index = state.findIndex((task) => task.id === action.payload.id);
+      if (index !== -1) {
+        state.splice(index, 1);
       }
     },
     // Toggle the completion status of a task and sort the list.
@@ -46,11 +44,19 @@ export const tasksSlice = createSlice({
       });
       state.sort(sortNotDoneToDone);
     },
+    // Update the text of a task
+    updateTaskText: (state, action) => {
+      const task = state.find((task) => task.id === action.payload.id);
+      if (task) {
+        task.taskText = action.payload.taskText;
+      }
+    },
   },
 });
 
 // Export actions from this slice for use in UI components or other parts of the application.
-export const { addTask, removeTask, updateTask } = tasksSlice.actions;
+export const { addTask, removeTask, updateTask, updateTaskText } =
+  tasksSlice.actions;
 
 // A selector to retrieve the tasks state slice from the entire RootState.
 export const selectTasks = (state: RootState) => state.tasks;
