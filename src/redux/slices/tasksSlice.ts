@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 import { sortNotDoneToDone } from '../../utils/sortNotDoneToDone';
-import { useToasts } from 'react-toast-notifications'; 
 
 export interface TaskState {
   id: string;
