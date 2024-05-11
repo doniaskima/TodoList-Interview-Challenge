@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 import { sortNotDoneToDone } from '../../utils/sortNotDoneToDone';
+import { useToasts } from 'react-toast-notifications'; 
 
 export interface TaskState {
   id: string;
@@ -18,7 +19,7 @@ export const tasksSlice = createSlice({
   reducers: {
     // Add a task to the state array if it doesn't already exist.
     addTask: (state, action) => {
-      const taskAlreadyCreated = state.find(
+         const taskAlreadyCreated = state.find(
         (task) =>
           task.taskText.toUpperCase() === action.payload.taskText.toUpperCase()
       );

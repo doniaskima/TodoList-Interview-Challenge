@@ -4,17 +4,20 @@ import { useDispatch } from 'react-redux';
 import { addTask } from '../redux/slices/tasksSlice';
 import { nanoid } from '@reduxjs/toolkit';
 import { motion } from 'framer-motion';
+import { useToasts } from 'react-toast-notifications';
 
 export const CreateNewTask = () => {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState('');
   const [shake, setShake] = useState(false);
-
+  const { addToast } = useToasts();
   const handleAddTask = () => {
     if (!inputValue.trim()) {
       setShake(true); // Trigger shake animation
       setTimeout(() => setShake(false), 500); // Reset shake after 500ms
-      alert('Write something in the field.');
+
+      addToast('Write something in the field.', { appearance: 'error' }); // Display error toast
+
       return;
     }
     dispatch(
