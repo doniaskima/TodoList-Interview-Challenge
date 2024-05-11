@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { RootState } from '../store';
+import type { RootState } from "../store";
 import { sortNotDoneToDone } from '../../utils/sortNotDoneToDone';
 
 export interface TaskState {
