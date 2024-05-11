@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import plusIcon from "../assets/plus-icon.svg";
 import { useDispatch } from "react-redux";
 import { addTask } from "../redux/slices/tasksSlice";
